@@ -83,7 +83,7 @@ int main()
 		std::cin >> name;
 		if (name == "Q" || name == "q" || name == "Quit" || name == "quit") break;
 		//поток ввода из файла, имя файла хранится в string переменной name
-		std::ifstream finp(name);
+		std::ifstream finp(name.c_str());
 		//взятие из файла 6 чисел и запись в переменные
 		finp >> a >> b >> c >> d >> e >> f;
 		TestFunction(a, b, c, d, e, f);
