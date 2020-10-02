@@ -139,27 +139,82 @@ class Octagon : public Figure
 //Вводится 16 чисел, координаты 8 точек для восьмиугольника
 std::istream& operator>>(std::istream &is, Octagon& ogon)
 {
-    is >> ogon.get_point1().x_ >> ogon.get_point1().y_;
-    is >> ogon.get_point2().x_ >> ogon.get_point2().y_;
-    is >> ogon.get_point3().x_ >> ogon.get_point3().y_;
-    is >> ogon.get_point4().x_ >> ogon.get_point4().y_;
-    is >> ogon.get_point5().x_ >> ogon.get_point5().y_;
-    is >> ogon.get_point6().x_ >> ogon.get_point6().y_;
-    is >> ogon.get_point7().x_ >> ogon.get_point7().y_;
-    is >> ogon.get_point8().x_ >> ogon.get_point8().y_;
-    return is;
+    std::string p11, p12, p21, p22, p31, p32, p41, p42, p51, p52, p61, p62, p71, p72, p81, p82;
+    while(true)
+    {
+        try
+        {
+            is >> p11 >> p12 >> p21 >> p22 >> p31 >> p32 >> p41 >> p42 >> p51 >> p52 >> p61 >> p62 >> p71 >> p72 >> p81 >> p82;
+            ogon.get_point1().x_ = std::stod(p11);
+            ogon.get_point1().y_ = std::stod(p12);
+            ogon.get_point2().x_ = std::stod(p21);
+            ogon.get_point2().y_ = std::stod(p22);
+            ogon.get_point3().x_ = std::stod(p31);
+            ogon.get_point3().y_ = std::stod(p32);
+            ogon.get_point4().x_ = std::stod(p41);
+            ogon.get_point4().y_ = std::stod(p42);
+            ogon.get_point5().x_ = std::stod(p51);
+            ogon.get_point5().y_ = std::stod(p52);
+            ogon.get_point6().x_ = std::stod(p61);
+            ogon.get_point6().y_ = std::stod(p62);
+            ogon.get_point7().x_ = std::stod(p71);
+            ogon.get_point7().y_ = std::stod(p72);
+            ogon.get_point8().x_ = std::stod(p81);
+            ogon.get_point8().y_ = std::stod(p82);
+            return is;
+        }
+        catch(const std::exception& ex)
+        {
+            std::cerr << "Incorrect data, try again" << std::endl;
+            std::cerr << ex.what() << std::endl;
+        }
+    }
 }
 //Вводится 4 числа координаты двух диагональных точек для квадрата
 std::istream& operator>>(std::istream &is, Square& sqr)
 {
-    is >> sqr.get_point1().x_ >> sqr.get_point1().y_ >> sqr.get_point2().x_ >> sqr.get_point2().y_;
-    return is;
+    std::string p11, p12, p21, p22;
+    while(true)
+    {
+        try
+        {
+            is >> p11 >> p12 >> p21 >> p22;
+            sqr.get_point1().x_ = std::stod(p11);
+            sqr.get_point1().y_ = std::stod(p12);
+            sqr.get_point2().x_ = std::stod(p21);
+            sqr.get_point2().y_ = std::stod(p22);
+            return is;
+        }
+        catch(const std::exception& ex)
+        {
+            std::cerr << "Incorrect data, try again" << std::endl;
+            std::cerr << ex.what() << std::endl;
+        }
+    }
 }
 //Вводится 6 чисел по 2 числа на каждую вершину трейгольника
 std::istream& operator>>(std::istream &is, Triangle& tr)
 {
-    is >> tr.get_point1().x_ >> tr.get_point1().y_ >> tr.get_point2().x_ >> tr.get_point2().y_ >> tr.get_point3().x_ >> tr.get_point3().y_;
-    return is;
+    std::string p11, p12, p21, p22, p31, p32;
+    while(true)
+    {
+        try
+        {
+            is >> p11 >> p12 >> p21 >> p22 >> p31 >> p32;
+            tr.get_point1().x_ = std::stod(p11);
+            tr.get_point1().y_ = std::stod(p12);
+            tr.get_point2().x_ = std::stod(p21);
+            tr.get_point2().y_ = std::stod(p22);
+            tr.get_point3().x_ = std::stod(p31);
+            tr.get_point3().y_ = std::stod(p32);
+            return is;
+        }
+        catch(const std::exception& ex)
+        {
+            std::cerr << "Incorrect data, try again" << std::endl;
+            std::cerr << ex.what() << std::endl;
+        }
+    }
 }
 //Функция вычисления площади в векторе
 double area_in_vector(std::vector<Figure*> figures)
@@ -296,19 +351,28 @@ int main()
 		if (name == "Q" || name == "q" || name == "Quit" || name == "quit") break;
 		//поток ввода из файла, имя файла хранится в string переменной name
 		std::ifstream finp(name.c_str());
-        double s11 = 0, s12 = 0, s21 = 0, s22 = 0;
-        double t11 = 0, t12 = 0, t21 = 0, t22 = 0, t31 = 0, t32 = 0;
-        double p11 = 0, p12 = 0, p21 = 0, p22 = 0, p31 = 0, p32 = 0, p41 = 0, p42 = 0,p51 = 0, p52 = 0;
-        double p61 = 0, p62 = 0, p71 = 0, p72 = 0, p81 = 0, p82 = 0;
+        std::string s11, s12, s21, s22;
+        std::string t11, t12, t21, t22, t31, t32;
+        std::string p11, p12, p21, p22, p31, p32, p41, p42, p51, p52;
+        std::string p61, p62, p71, p72, p81, p82;
         //Взятие 16 чисел для восьмиугольника из файла
-		finp >> p11 >> p12 >> p21 >> p22 >> p31 >> p32 >> p41 >> p42 >> p51 >> p52 >> p61 >> p62 >> p71 >> p72 >> p81 >> p82; 
-        TestOctagon(p11, p12, p21, p22, p31, p32, p41, p42, p51, p52, p61, p62, p71, p72, p81, p82);
+		finp >> p11 >> p12 >> p21 >> p22 >> p31 >> p32 >> p41 >> p42 >> p51 >> p52 >> p61 >> p62 >> p71 >> p72 >> p81 >> p82;
         //Взятие 4 чисел для квадрата из файла
         finp >> s11 >> s12 >> s21 >> s22;
-        TestSquare(s11, s12, s21, s22);
         //Взятие 6 чисел для треугольника из файла
         finp >> t11 >> t12 >> t21 >> t22 >> t31 >> t32;
-        TestTriangle(t11, t12, t21, t22, t31, t32);
+        try
+        {
+            TestOctagon(std::stod(p11), std::stod(p12), std::stod(p21), std::stod(p22), std::stod(p31), std::stod(p32), std::stod(p41),
+            std::stod(p42), std::stod(p51), std::stod(p52), std::stod(p61), std::stod(p62), std::stod(p71), std::stod(p72), std::stod(p81), std::stod(p82));
+            TestSquare(std::stod(s11), std::stod(s12), std::stod(s21), std::stod(s22));
+            TestTriangle(std::stod(t11), std::stod(t12), std::stod(t21), std::stod(t22), std::stod(t31), std::stod(t32));
+        }
+        catch(std::exception& ex) 
+        {
+            std::cerr << "Incorrect data" << std::endl;
+            std::cerr << ex.what() << std::endl;
+        }
 		finp.close();
 	}
 	return 0;
