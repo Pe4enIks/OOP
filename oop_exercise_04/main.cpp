@@ -16,18 +16,9 @@ struct Square
 {
     using type = T;
     std::pair<T,T> v_arr[SIZE];
-
+    size_t size = SIZE;
     std::pair<T,T>* begin() { return &v_arr[0]; }
     std::pair<T,T>* end() { return &v_arr[SIZE]; }
-
-    constexpr double get_square()
-    {
-        double side_0 = sqrt(pow((v_arr[1].first - v_arr[0].first), 2) + pow((v_arr[1].second - v_arr[0].second), 2));
-        double side_1 = sqrt(pow((v_arr[2].first - v_arr[0].first), 2) + pow((v_arr[2].second - v_arr[0].second), 2));
-        double side_2 = sqrt(pow((v_arr[3].first - v_arr[0].first), 2) + pow((v_arr[3].second - v_arr[0].second), 2));
-        double side = std::min({side_0, side_1, side_2});
-        return pow(side,2);
-    }
 };
 
 //Класс треугольника
@@ -36,15 +27,9 @@ struct Triangle
 {
     using type = T;
     std::pair<T,T> v_arr[SIZE];
-
+    size_t size = SIZE;
     std::pair<T,T>* begin() { return &v_arr[0]; }
     std::pair<T,T>* end() { return &v_arr[SIZE]; }
-
-    constexpr double get_square()
-    {
-        double side = sqrt(pow((v_arr[1].first - v_arr[0].first), 2) + pow((v_arr[1].second - v_arr[0].second), 2));
-        return sqrt(3.0)/4.0*pow(side,2);
-    }
 };
 
 //Класс восьмиугольника
@@ -53,22 +38,9 @@ struct Octagon
 {
     using type = T;
     std::pair<T,T> v_arr[SIZE];
-
+    size_t size = SIZE;
     std::pair<T,T>* begin() { return &v_arr[0]; }
     std::pair<T,T>* end() { return &v_arr[SIZE]; }
-
-    constexpr double get_square()
-    {
-        double side_0 = sqrt(pow((v_arr[1].first - v_arr[0].first), 2) + pow((v_arr[1].second - v_arr[0].second), 2));
-        double side_1 = sqrt(pow((v_arr[2].first - v_arr[0].first), 2) + pow((v_arr[2].second - v_arr[0].second), 2));
-        double side_2 = sqrt(pow((v_arr[3].first - v_arr[0].first), 2) + pow((v_arr[3].second - v_arr[0].second), 2));
-        double side_3 = sqrt(pow((v_arr[4].first - v_arr[0].first), 2) + pow((v_arr[4].second - v_arr[0].second), 2));
-        double side_4 = sqrt(pow((v_arr[5].first - v_arr[0].first), 2) + pow((v_arr[5].second - v_arr[0].second), 2));
-        double side_5 = sqrt(pow((v_arr[6].first - v_arr[0].first), 2) + pow((v_arr[6].second - v_arr[0].second), 2));
-        double side_6 = sqrt(pow((v_arr[7].first - v_arr[0].first), 2) + pow((v_arr[7].second - v_arr[0].second), 2));
-        double side = std::min({side_0, side_1, side_2, side_3, side_4, side_5, side_6});
-        return 2*pow(side,2)/tan(PI/8);
-    }
 };
 
 // Печать любой фигуры
@@ -98,12 +70,27 @@ typename std::enable_if<index<std::tuple_size<T>::value,void>::type print_tuple(
     print_tuple<T,index+1>(tuple);
 }
 
+//Нахождение площади фигуры
+template<typename T>
+typename std::enable_if<(sizeof(T::v_arr)>0),double>::type square(T& fig)
+{
+    double side = sqrt(pow((fig.v_arr[1].first - fig.v_arr[0].first), 2) + pow((fig.v_arr[1].second - fig.v_arr[0].second), 2));
+    for(size_t i = 1; i < fig.size; ++i)
+    {
+        side = side < sqrt(pow((fig.v_arr[i].first - fig.v_arr[0].first), 2) + pow((fig.v_arr[i].second - fig.v_arr[0].second), 2)) ? side : sqrt(pow((fig.v_arr[i].first - fig.v_arr[0].first), 2) + pow((fig.v_arr[i].second - fig.v_arr[0].second), 2));
+    }
+    if(fig.size == 3) { return sqrt(3.0)/4.0*pow(side,2); }
+    else if(fig.size == 4) { return pow(side,2); }
+    else if(fig.size == 8) { return 2*pow(side,2)/tan(PI/8); }
+    else { return 0.0; }
+}
+
 //Нахождение суммарной площади в tuple
 template <typename T,size_t index>
 double square_tuple(T& tuple)
 {
     auto item = std::get<index>(tuple);
-    double value = item.get_square();
+    double value = square(item);
     if constexpr ((index+1) < std::tuple_size<T>::value)
     {
         return value + square_tuple<T,index+1>(tuple);
@@ -135,7 +122,7 @@ int main()
     ogon.v_arr[4] = {0.0,0.0};
     ogon.v_arr[5] = {sqrt(2.0),0.0};
     ogon.v_arr[6] = {-1.0,1.0+sqrt(2.0)};
-    ogon.v_arr[7] = {sqrt(2.0)+1,sqrt(2.0)+1.0};
+    ogon.v_arr[7] = {sqrt(2.0)+1.0,sqrt(2.0)+1.0};
 
     //Создаем tuple из фигур
     auto tuple = std::make_tuple(tr, sq, ogon);
