@@ -13,10 +13,10 @@
 
 int main()
 {
-    my_queue<Trapezoid<int>> q;
-    Trapezoid<int> tr_0;
-    Trapezoid<int> tr_1;
-    Trapezoid<int> tr_2;
+    my_queue<trapezoid<int>> q;
+    trapezoid<int> tr_0;
+    trapezoid<int> tr_1;
+    trapezoid<int> tr_2;
 
     std::cin >> tr_0 >> tr_1 >> tr_2;
 
@@ -24,12 +24,12 @@ int main()
     q.push(tr_1);
     q.push(tr_2);
 
-    std::cout << "\nCount object with area less than 10: " << std::count_if(q.begin(), q.end(), [](Trapezoid<int> obj){ return obj.area() < 10.0; }) << "\n";
+    std::cout << "\nCount object with area less than 10: " << std::count_if(q.begin(), q.end(), [](trapezoid<int> obj){ return obj.area() < 10.0; }) << "\n";
 
     std::cout << "\nqueue: ";
     std::for_each(q.begin(), q.end(), [](auto& figure){std::cout << figure;});
 
-    Trapezoid<int> el = q.del(1);
+    trapezoid<int> el = q.del(1);
     std::cout << "\nqueue: ";
     std::for_each(q.begin(), q.end(), [](auto& figure){std::cout << figure;});
 
@@ -75,6 +75,6 @@ int main()
     std::cout << "\nqueue: ";
     std::for_each(q.begin(), q.end(), [](auto& figure){std::cout << figure;});
 
-    std::cout << "\nCount object with area less than 5: " << std::count_if(q.begin(), q.end(), [](Trapezoid<int> obj){ return obj.area() < 5.0; }) << "\n";
+    std::cout << "\nCount object with area less than 5: " << std::count_if(q.begin(), q.end(), [](trapezoid<int> obj){ return obj.area() < 5.0; }) << "\n";
     return 0;
 }

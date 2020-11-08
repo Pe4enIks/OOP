@@ -2,18 +2,18 @@
 
 //Структура трапеции
 template <typename T>
-struct Trapezoid
+struct trapezoid
 {
     using vertex_t = std::pair<T,T>;
     vertex_t p1_, p2_, p3_, p4_;
-    Trapezoid()
+    trapezoid()
     {
         p1_ = {0, 0};
         p2_ = {0, 0};
         p3_ = {0, 0};
         p4_ = {0, 0};
     }
-    Trapezoid(T const& p11, T const& p12, T const& p21, T const& p22, T const& p31, T const& p32, T const& p41, T const& p42)
+    trapezoid(T const& p11, T const& p12, T const& p21, T const& p22, T const& p31, T const& p32, T const& p41, T const& p42)
     {
         p1_ = {p11, p12};
         p2_ = {p21, p22};
@@ -25,7 +25,7 @@ struct Trapezoid
 
 //Оператор ввода
 template<typename T>
-std::istream& operator>>(std::istream& is, Trapezoid<T>& tr)
+std::istream& operator>>(std::istream& is, trapezoid<T>& tr)
 {
     while(true)
     {
@@ -53,7 +53,7 @@ std::istream& operator>>(std::istream& is, Trapezoid<T>& tr)
 
 //Оператор вывода
 template<typename T>
-std::ostream& operator<<(std::ostream& os, Trapezoid<T>& tr)
+std::ostream& operator<<(std::ostream& os, trapezoid<T>& tr)
 {
     os << "Trapezoid\n";
     os << "(" << tr.p1_.first << "," << tr.p1_.second << ") ";
@@ -65,7 +65,7 @@ std::ostream& operator<<(std::ostream& os, Trapezoid<T>& tr)
 
 //Площадь
 template<typename T>
-double Trapezoid<T>::area()
+double trapezoid<T>::area()
 {
     try
     {
