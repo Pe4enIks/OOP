@@ -20,3 +20,12 @@ struct iterator
     bool operator==(iterator const& other) const { return ptr == other.ptr; }
     bool operator!=(iterator const& other) const { return !(*this == other); }
 };
+
+template <typename T>
+bool operator<(iterator<T> const& lhs, iterator<T> const& rhs) { return lhs.ptr < rhs.ptr; }
+template <typename T>
+bool operator>(iterator<T> const& lhs, iterator<T> const& rhs) { return rhs.ptr < lhs.ptr; }
+template <typename T>
+bool operator<=(iterator<T> const& lhs, iterator<T> const& rhs) { return !(rhs.ptr < lhs.ptr); }
+template <typename T>
+bool operator>=(iterator<T> const& lhs, iterator<T> const& rhs) { return !(lhs.ptr < rhs.ptr); }

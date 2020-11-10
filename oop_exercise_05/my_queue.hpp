@@ -101,7 +101,7 @@ void my_queue<T>::insert(iterator<T>& iter, T& el)
 {
     try
     {
-        if(iter == end()) { throw std::exception("Iter can't be equal to end"); }
+        if(iter >= end() || iter < begin()) { throw std::exception("Iter out of bounds"); }
         iterator<T> prev_iter = iter;
         T prev_el = *prev_iter;
         T cur_el = *prev_iter;
@@ -129,7 +129,7 @@ T my_queue<T>::erase(iterator<T>& iter)
 {
     try
     {
-        if(iter == end()) { throw std::exception("Iter can't be equal to end"); }
+        if(iter >= end() || iter < begin()) { throw std::exception("Iter out of bounds"); }
         if(size_ == 0) { throw std::exception("Delete from empty queue"); }
         T val = *iter;
         size_t count = 1;

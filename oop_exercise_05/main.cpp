@@ -76,5 +76,9 @@ int main()
     std::for_each(q.begin(), q.end(), [](auto& figure){std::cout << figure;});
 
     std::cout << "\nCount object with area less than 5: " << std::count_if(q.begin(), q.end(), [](trapezoid<int> obj){ return obj.area() < 5.0; }) << "\n";
+
+    iter = q.begin();
+    --iter;
+    q.insert(iter, tr_0);
     return 0;
 }
