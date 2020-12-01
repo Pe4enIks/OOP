@@ -1,0 +1,19 @@
+add
+square
+0 0 0 2 2 2 2 0
+add
+square
+0 0 0 3 3 3 3 0
+add
+square
+0 0 0 4 4 4 4 0
+undo
+print
+del
+0
+undo
+print
+undo
+print
+undo
+print

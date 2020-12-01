@@ -1,0 +1,31 @@
+usage
+add
+square
+0 0 0 2 2 2 2 0
+print
+add
+triangle
+0 0 1 2 -1 4
+print
+save
+C:\Users\SuperPC\Downloads\VSC\OOP\oop_exercise_07\res.txt
+del
+1
+print
+del
+0
+print
+load
+C:\Users\SuperPC\Downloads\VSC\OOP\oop_exercise_07\res.txt
+add
+square
+0 0 0 2 2 2 2 0
+add
+triangle
+0 0 1 2 -1 4
+clear
+print
+undo
+print
+undo
+print
