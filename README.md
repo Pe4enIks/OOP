@@ -1,5 +1,5 @@
 # ООП
-## [Пищик Е.С. М8О-206Б-19](https://github.com/Pe4enIks/)
+## [Пищик Е.С. М8О-06Б-19](https://github.com/Pe4enIks/)
 Лабораторные работы:
 1. [вариант 20](/oop_tasks/oop_1.pdf)
 2. [вариант 9](/oop_tasks/oop_2.pdf)
